@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
-const { Option } = Select;
 
 // 👇 对应后端的 Order 模型
 interface OrderItem {
@@ -57,21 +56,21 @@ const OrdersPage: React.FC = () => {
     const fetchTopSpender = async () => {
         try {
             const token = localStorage.getItem('token');
-            if(token) {
-                 // Try to fetch top spender statistics
-                 // Note: Ensure your backend has this endpoint or similar. 
-                 // If using /api/Order/TopSpender or /api/Stats/TopSpender
-                 try {
-                     const response = await axios.get(`${BACKEND_URL}/api/Order/TopSpender`, {
+            if (token) {
+                // Try to fetch top spender statistics
+                // Note: Ensure your backend has this endpoint or similar. 
+                // If using /api/Order/TopSpender or /api/Stats/TopSpender
+                try {
+                    const response = await axios.get(`${BACKEND_URL}/api/Order/TopSpender`, {
                         headers: { Authorization: `Bearer ${token}` }
-                     });
-                     setTopSpender(response.data);
-                 } catch(e) {
-                     console.log("Top Spender endpoint might not be ready", e);
-                 }
+                    });
+                    setTopSpender(response.data);
+                } catch (e) {
+                    console.log("Top Spender endpoint might not be ready", e);
+                }
             }
         } catch (error) {
-             console.error("Failed to fetch top spender");
+            console.error("Failed to fetch top spender");
         }
     };
 
@@ -210,17 +209,28 @@ const OrdersPage: React.FC = () => {
             dataIndex: 'status',
             key: 'status',
             render: (status: string, record: Order) => (
-                // 下拉框让管理员直接改状态
                 <Select
                     defaultValue={status}
-                    style={{ width: 120 }}
+                    style={{ width: 150 }} //稍微宽一点，防止Tag被切掉
                     onChange={(val) => handleStatusChange(record.id, val)}
                     bordered={false}
                 >
-                    <Option value="Pending">Pending</Option>
-                    <Option value="InProgress">In Progress</Option>
-                    <Option value="Delivered">Delivered</Option>
-                    <Option value="Cancelled">Cancelled</Option>
+                    {/* 👇 关键在这里！直接调用你的 renderStatus 函数 */}
+                    <Select.Option value="Pending">
+                        {renderStatus('Pending')}
+                    </Select.Option>
+
+                    <Select.Option value="InProgress">
+                        {renderStatus('InProgress')}
+                    </Select.Option>
+
+                    <Select.Option value="Delivered">
+                        {renderStatus('Delivered')}
+                    </Select.Option>
+
+                    <Select.Option value="Cancelled">
+                        {renderStatus('Cancelled')}
+                    </Select.Option>
                 </Select>
             )
         },
@@ -245,12 +255,12 @@ const OrdersPage: React.FC = () => {
     return (
         <Layout style={{ minHeight: '100vh', background: '#F5F7FA' }}>
             {/* Premium Header */}
-            <Header style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
-                alignItems: 'center', 
-                background: '#FFFFFF', 
-                padding: '0 48px', 
+            <Header style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                background: '#FFFFFF',
+                padding: '0 48px',
                 height: 72,
                 boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                 position: 'sticky',
@@ -259,9 +269,9 @@ const OrdersPage: React.FC = () => {
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                        <div style={{ 
-                            width: 40, 
-                            height: 40, 
+                        <div style={{
+                            width: 40,
+                            height: 40,
                             background: '#1890FF',
                             borderRadius: 10,
                             display: 'flex',
@@ -279,9 +289,9 @@ const OrdersPage: React.FC = () => {
                 </div>
                 <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
                     <Text style={{ color: '#8C8C8C' }}>Hi, {localStorage.getItem('username') || 'User'}</Text>
-                    <Button 
-                        icon={<LogoutOutlined />} 
-                        onClick={handleLogout} 
+                    <Button
+                        icon={<LogoutOutlined />}
+                        onClick={handleLogout}
                         style={{ borderRadius: 50, height: 44, border: 'none', background: '#FFF1F0', color: '#CF1322' }}
                     >Logout</Button>
                 </div>
@@ -294,8 +304,8 @@ const OrdersPage: React.FC = () => {
                         <Title level={2} style={{ margin: 0, color: '#1F1F1F', fontWeight: 600 }}>Orders</Title>
                         <Text style={{ color: '#8C8C8C', fontSize: 15 }}>Real-time orders monitored by Azure AI Sentiment Analysis</Text>
                     </div>
-                    <Button 
-                        icon={<ReloadOutlined />} 
+                    <Button
+                        icon={<ReloadOutlined />}
                         onClick={fetchOrders}
                         style={{ borderRadius: 50, height: 44, border: 'none', background: '#FFFFFF', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
                     >Refresh</Button>
@@ -304,20 +314,20 @@ const OrdersPage: React.FC = () => {
                 {/* Stats Cards */}
                 <Row gutter={24} style={{ marginBottom: 32 }}>
                     <Col xs={24} sm={12} lg={6}>
-                        <Card 
-                            style={{ 
-                                borderRadius: 16, 
-                                border: 'none', 
+                        <Card
+                            style={{
+                                borderRadius: 16,
+                                border: 'none',
                                 boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
                                 background: '#FFFFFF'
                             }}
                             styles={{ body: { padding: 24 } }}
                         >
                             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                                <div style={{ 
-                                    width: 48, 
-                                    height: 48, 
-                                    background: '#E6F0FF', 
+                                <div style={{
+                                    width: 48,
+                                    height: 48,
+                                    background: '#E6F0FF',
                                     borderRadius: 12,
                                     display: 'flex',
                                     alignItems: 'center',
@@ -333,20 +343,20 @@ const OrdersPage: React.FC = () => {
                         </Card>
                     </Col>
                     <Col xs={24} sm={12} lg={6}>
-                        <Card 
-                            style={{ 
-                                borderRadius: 16, 
-                                border: 'none', 
+                        <Card
+                            style={{
+                                borderRadius: 16,
+                                border: 'none',
                                 boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
                                 background: '#FFFFFF'
                             }}
                             styles={{ body: { padding: 24 } }}
                         >
                             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                                <div style={{ 
-                                    width: 48, 
-                                    height: 48, 
-                                    background: '#E6F7E9', 
+                                <div style={{
+                                    width: 48,
+                                    height: 48,
+                                    background: '#E6F7E9',
                                     borderRadius: 12,
                                     display: 'flex',
                                     alignItems: 'center',
@@ -362,20 +372,20 @@ const OrdersPage: React.FC = () => {
                         </Card>
                     </Col>
                     <Col xs={24} sm={12} lg={6}>
-                        <Card 
-                            style={{ 
-                                borderRadius: 16, 
-                                border: 'none', 
+                        <Card
+                            style={{
+                                borderRadius: 16,
+                                border: 'none',
                                 boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
                                 background: '#FFFFFF'
                             }}
                             styles={{ body: { padding: 24 } }}
                         >
                             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                                <div style={{ 
-                                    width: 48, 
-                                    height: 48, 
-                                    background: '#FFF7E6', 
+                                <div style={{
+                                    width: 48,
+                                    height: 48,
+                                    background: '#FFF7E6',
                                     borderRadius: 12,
                                     display: 'flex',
                                     alignItems: 'center',
@@ -394,20 +404,20 @@ const OrdersPage: React.FC = () => {
                         </Card>
                     </Col>
                     <Col xs={24} sm={12} lg={6}>
-                        <Card 
-                            style={{ 
-                                borderRadius: 16, 
-                                border: 'none', 
+                        <Card
+                            style={{
+                                borderRadius: 16,
+                                border: 'none',
                                 boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
                                 background: '#FFFFFF'
                             }}
                             styles={{ body: { padding: 24 } }}
                         >
                             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                                <div style={{ 
-                                    width: 48, 
-                                    height: 48, 
-                                    background: '#F0E6FF', 
+                                <div style={{
+                                    width: 48,
+                                    height: 48,
+                                    background: '#F0E6FF',
                                     borderRadius: 12,
                                     display: 'flex',
                                     alignItems: 'center',
@@ -425,10 +435,10 @@ const OrdersPage: React.FC = () => {
                 </Row>
 
                 {/* Orders Table */}
-                <Card 
-                    style={{ 
-                        borderRadius: 16, 
-                        border: 'none', 
+                <Card
+                    style={{
+                        borderRadius: 16,
+                        border: 'none',
                         boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)'
                     }}
                     styles={{ body: { padding: 0 } }}
@@ -443,9 +453,9 @@ const OrdersPage: React.FC = () => {
                             style={{ borderRadius: 16 }}
                         />
                     </div>
-                    <div style={{ 
-                        display: 'flex', 
-                        justifyContent: 'flex-end', 
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
                         padding: '16px 24px',
                         borderTop: '1px solid #F0F0F0',
                         background: '#FFFFFF'
