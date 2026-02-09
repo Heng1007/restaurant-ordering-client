@@ -96,7 +96,8 @@ const LoginPage: React.FC = () => {
             <Card
                 bordered={false}
                 style={{
-                    width: 420,
+                    maxWidth: 420,
+                    width: '100%',
                     borderRadius: 24,
                     boxShadow: '0 20px 60px rgba(0, 0, 0, 0.08)',
                     padding: '16px'

@@ -239,3 +239,137 @@ p, span, div {
 ::-webkit-scrollbar-thumb:hover {
   background: #B0B5BD;
 }
+
+/* ========================================
+   Responsive Design System
+======================================== */
+
+.app-header {
+  transition: padding 0.3s ease;
+}
+
+.page-header {
+  transition: all 0.3s ease;
+}
+
+/* Tablet Breakpoint */
+@media (max-width: 992px) {
+  .app-content {
+    padding: 24px !important;
+  }
+}
+
+/* Mobile Breakpoint */
+@media (max-width: 768px) {
+  /* === Header === */
+  .app-header.ant-layout-header {
+    padding: 0 16px !important;
+    height: auto !important;
+    min-height: 56px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+
+  .header-left {
+    gap: 12px !important;
+  }
+
+  .header-brand-text {
+    font-size: 14px !important;
+  }
+
+  .header-nav .ant-btn {
+    padding: 4px 10px !important;
+    height: 34px !important;
+    font-size: 13px !important;
+  }
+
+  .header-right {
+    gap: 6px !important;
+  }
+
+  .header-username {
+    display: none !important;
+  }
+
+  /* Icon-only buttons on mobile */
+  .btn-responsive.ant-btn {
+    padding: 0 10px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+  }
+
+  .btn-responsive.ant-btn > span:not(.ant-btn-icon) {
+    display: none !important;
+  }
+
+  /* === Content === */
+  .app-content {
+    padding: 16px !important;
+  }
+
+  /* === Page Header === */
+  .page-header {
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: stretch !important;
+  }
+
+  .page-header-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* === Tables === */
+  .table-responsive-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* === Modals === */
+  .ant-modal {
+    max-width: calc(100vw - 32px) !important;
+    top: 20px !important;
+  }
+
+  /* === Drawer === */
+  .ant-drawer-right > .ant-drawer-content-wrapper {
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  /* === Food Grid === */
+  .food-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+/* Small Phone Breakpoint */
+@media (max-width: 480px) {
+  .app-header.ant-layout-header {
+    padding: 0 12px !important;
+  }
+
+  .app-content {
+    padding: 12px !important;
+  }
+
+  .header-brand-text {
+    display: none !important;
+  }
+
+  .header-nav .ant-btn {
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+  }
+
+  .page-header h2.ant-typography {
+    font-size: 20px !important;
+  }
+
+  .btn-responsive.ant-btn {
+    padding: 0 8px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+  }
+}

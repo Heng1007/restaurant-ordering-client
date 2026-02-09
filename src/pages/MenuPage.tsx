@@ -223,7 +223,7 @@ const MenuPage: React.FC = () => {
   return (
     <Layout style={{ minHeight: '100vh', background: '#F5F7FA' }}>
       {/* Premium Header */}
-      <Header style={{ 
+      <Header className="app-header" style={{ 
         display: 'flex', 
         justifyContent: 'space-between', 
         alignItems: 'center', 
@@ -235,7 +235,7 @@ const MenuPage: React.FC = () => {
         top: 0,
         zIndex: 100
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
+        <div className="header-left" style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               <div style={{ 
                 width: 40, 
@@ -248,24 +248,26 @@ const MenuPage: React.FC = () => {
               }}>
                 <span style={{ fontSize: 20 }}>🍔</span>
               </div>
-              <Title level={4} style={{ margin: 0, color: '#1F1F1F', fontWeight: 600 }}>FoodDelivery</Title>
+              <Title level={4} className="header-brand-text" style={{ margin: 0, color: '#1F1F1F', fontWeight: 600 }}>FoodDelivery</Title>
             </div>
-            <nav style={{ display: 'flex', gap: 8 }}>
+            <nav className="header-nav" style={{ display: 'flex', gap: 8 }}>
               <Button type="text" style={{ fontWeight: 600, color: '#1890FF', background: '#E6F7FF', borderRadius: 8 }}>Menu</Button>
               {isAdmin && (
                 <Button type="text" onClick={() => navigate('/orders')} style={{ fontWeight: 500, color: '#595959', borderRadius: 8 }}>Orders (Admin)</Button>
               )}
             </nav>
         </div>
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-            <Text style={{ color: '#8C8C8C' }}>Hi, {localStorage.getItem('username') || 'User'}</Text>
+        <div className="header-right" style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+            <Text className="header-username" style={{ color: '#8C8C8C' }}>Hi, {localStorage.getItem('username') || 'User'}</Text>
             <Button 
+              className="btn-responsive"
               icon={<HistoryOutlined />} 
               onClick={openHistory}
               style={{ borderRadius: 50, height: 44, border: 'none', background: '#F5F7FA' }}
             >My Orders</Button>
             <Badge count={cart.reduce((sum, item) => sum + item.quantity, 0)} offset={[-2, 2]}>
                 <Button 
+                  className="btn-responsive"
                   icon={<ShoppingCartOutlined />} 
                   onClick={() => setIsCheckoutModalOpen(true)}
                   style={{ 
@@ -280,6 +282,7 @@ const MenuPage: React.FC = () => {
                 >Cart</Button>
             </Badge>
             <Button 
+              className="btn-responsive"
               icon={<LogoutOutlined />} 
               onClick={handleLogout} 
               style={{ borderRadius: 50, height: 44, border: 'none', background: '#FFF1F0', color: '#CF1322' }}
@@ -287,14 +290,14 @@ const MenuPage: React.FC = () => {
         </div>
       </Header>
 
-      <Content style={{ padding: '40px 48px', maxWidth: 1400, margin: '0 auto', width: '100%' }}>
+      <Content className="app-content" style={{ padding: '40px 48px', maxWidth: 1400, margin: '0 auto', width: '100%' }}>
         {/* Page Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 32 }}>
+        <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 32 }}>
              <div>
                <Title level={2} style={{ margin: 0, color: '#1F1F1F', fontWeight: 600 }}>Menu</Title>
                <Text style={{ color: '#8C8C8C', fontSize: 15 }}>Manage and browse your food items</Text>
              </div>
-             <div style={{ display: 'flex', gap: 12 }}>
+             <div className="page-header-actions" style={{ display: 'flex', gap: 12 }}>
                  <Button 
                    icon={<ReloadOutlined />} 
                    onClick={fetchFoods}
