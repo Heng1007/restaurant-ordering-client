@@ -1,75 +1,70 @@
-# React + TypeScript + Vite
+# 🍔 Food Delivery Platform - Interactive Client Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/typescript-%230074c1.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![Ant-Design](https://img.shields.io/badge/-AntDesign-%230170FE?style=for-the-badge&logo=ant-design&logoColor=white)
+![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 
-Currently, two official plugins are available:
+A modern, highly responsive Single-Page Application (SPA) built for a seamless food delivery experience. It features a clean UI for customers and a powerful, data-driven dashboard for administrators.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🔗 The "Twin-Star" Architecture
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+This project adopts a modern decoupled architecture. You are currently viewing the **Frontend Web App** repository.
 
-Note: This will impact Vite dev & build performances.
+* ⚙️ **Backend API Repository (.NET/Azure):** [Click here to view the Backend Repo](https://github.com/Heng1007/FoodDeliveryServer)
+* 🌐 **Live Web Demo:** [Experience the App](https://food-delivery-client-62vj.vercel.app/login)
+* 📚 **API Documentation:** [Swagger UI](https://heng-food-api-amc2aab4hdebekhg.southeastasia-01.azurewebsites.net/swagger/index.html)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📸 Visual Showcase
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. 🔐 Secure Authentication & Customer Menu
+*A clean, user-friendly interface for browsing the menu and placing orders.*
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+<img width="1912" height="938" alt="image" src="https://github.com/user-attachments/assets/06411471-e07f-47c3-bc37-bd01e891fd36" />
+<img width="1916" height="941" alt="image" src="https://github.com/user-attachments/assets/4bfa63f4-f592-44af-8ac9-81344944e25b" />
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. 📊 Admin Dashboard & Order Tracking
+*A single interface for sales overview and order tracking.*
+
+<img width="1911" height="944" alt="image" src="https://github.com/user-attachments/assets/491bb48e-5b58-4bde-ba68-bfad7564483d" />
+
+---
+
+## ✨ Key Frontend Features
+
+* **🎨 Enterprise-Grade UI/UX:** Designed using **Ant Design (antd)** components to ensure a consistent, accessible, and responsive user experience across all devices.
+* **⚡ Blazing Fast Build & Hot Reload:** Migrated to **Vite** as the build tool, significantly improving development speed and reducing production bundle size compared to Create React App.
+* **🔒 State & Routing Management:** Implemented secure routing utilizing **React Router DOM**. Protected Admin-only routes using **JWT (JSON Web Token)** validation stored securely in local storage.
+* **🛠️ Dynamic Data Rendering:** Developed custom render functions within Ant Design tables to display visually intuitive status tags and interactive dropdowns for instant API updates.
+* **☁️ Vercel Deployment & SPA Routing:** Successfully deployed to **Vercel** with a custom vercel.json configuration to handle Single-Page Application (SPA) rewrite rules.
+
+---
+
+## 🚀 Getting Started (Local Development)
+
+### 1. Clone the repository
+```bash
+git clone <YOUR_FRONTEND_REPO_URL>
+cd <YOUR_FRONTEND_FOLDER_NAME>
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 3. Configure Environment Variables
+Create a .env file in the root directory and connect it to your local or cloud backend API:
+```env
+VITE_API_BASE_URL=[https://your-backend-api-url.com/api](https://your-backend-api-url.com/api)
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 4. Start the Development Server
+```bash
+npm run dev
 ```
