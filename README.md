@@ -44,27 +44,3 @@ This project adopts a modern decoupled architecture. You are currently viewing t
 * **☁️ Vercel Deployment & SPA Routing:** Successfully deployed to **Vercel** with a custom vercel.json configuration to handle Single-Page Application (SPA) rewrite rules.
 
 ---
-
-## 🚀 Getting Started (Local Development)
-
-### 1. Clone the repository
-```bash
-git clone <YOUR_FRONTEND_REPO_URL>
-cd <YOUR_FRONTEND_FOLDER_NAME>
-```
-
-### 2. Install Dependencies
-```bash
-npm install
-```
-
-### 3. Configure Environment Variables
-Create a .env file in the root directory and connect it to your local or cloud backend API:
-```env
-VITE_API_BASE_URL=[https://your-backend-api-url.com/api](https://your-backend-api-url.com/api)
-```
-
-### 4. Start the Development Server
-```bash
-npm run dev
-```
