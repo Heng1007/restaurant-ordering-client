@@ -15,7 +15,7 @@ A modern, highly responsive Single-Page Application (SPA) built for a seamless f
 This project adopts a modern decoupled architecture. You are currently viewing the **Frontend Web App** repository.
 
 * ⚙️ **Backend API Repository (.NET/Azure):** [Click here to view the Backend Repo](https://github.com/Heng1007/FoodDeliveryServer)
-* 🌐 **Live Web Demo:** [Experience the App](https://food-delivery-client-62vj.vercel.app/login)
+* 🌐 **Live Web Demo:** [Experience the App](https://food-delivery-client-62vj.vercel.app/login) Admin Account For Testing (Account: Heng, Password: 111111)
 * 📚 **API Documentation:** [Swagger UI](https://heng-food-api-amc2aab4hdebekhg.southeastasia-01.azurewebsites.net/swagger/index.html)
 
 ---
