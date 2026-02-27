@@ -210,7 +210,7 @@ const LoginPage: React.FC = () => {
 
                 <div style={{ textAlign: 'center', marginTop: 32, paddingTop: 24, borderTop: '1px solid #F0F0F0' }}>
                     <Text style={{ color: '#8C8C8C', fontSize: 13 }}>
-                        Powered by .NET 8 + Azure AI
+                        Powered by .NET 9 + Azure AI
                     </Text>
                 </div>
             </Card>
