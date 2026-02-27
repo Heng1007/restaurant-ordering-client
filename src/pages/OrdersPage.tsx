@@ -34,8 +34,8 @@ const OrdersPage: React.FC = () => {
     const navigate = useNavigate();
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(false);
-    const [stats, setStats] = useState({ totalOrders: 0, totalRevenue: 0 });
     const [topSpender, setTopSpender] = useState<TopSpender | null>(null);
+    const [totalRevenue, setTotalRevenue] = useState<number | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 8;
 
@@ -49,9 +49,14 @@ const OrdersPage: React.FC = () => {
             navigate('/menu');
             return;
         }
-        fetchOrders();
-        fetchTopSpender();
+        fetchAllData();
     }, []);
+
+    const fetchAllData = () => {
+        fetchOrders();
+        fetchTotalRevenue();
+        fetchTopSpender();
+    };
 
     const fetchTopSpender = async () => {
         try {
@@ -74,6 +79,24 @@ const OrdersPage: React.FC = () => {
         }
     };
 
+    const fetchTotalRevenue = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    const response = await axios.get(`${BACKEND_URL}/api/Order/TotalRevenue`, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    setTotalRevenue(response.data);
+                } catch (e) {
+                    console.log("Total Revenue endpoint might not be ready", e);
+                }
+            }
+        } catch (error) {
+            console.error("Failed to fetch total revenue");
+        }
+    };
+
     const fetchOrders = async () => {
         setLoading(true);
         try {
@@ -90,10 +113,6 @@ const OrdersPage: React.FC = () => {
 
             const data: Order[] = response.data;
             setOrders(data);
-
-            // 前端简单算一下统计数据 (也可以用后端 StatsController)
-            const revenue = data.reduce((sum, order) => sum + order.totalPrice, 0);
-            setStats({ totalOrders: data.length, totalRevenue: revenue });
 
         } catch (error) {
             message.error('Failed to load orders.');
@@ -140,7 +159,7 @@ const OrdersPage: React.FC = () => {
                 headers: { Authorization: `Bearer ${token}` }
             });
             message.success(`Order #${orderId} updated to ${newStatus}`);
-            fetchOrders();
+            fetchAllData();
         } catch (e) {
             message.error("Failed to update status");
         }
@@ -154,7 +173,7 @@ const OrdersPage: React.FC = () => {
                 headers: { Authorization: `Bearer ${token}` }
             });
             message.success('Order Cancelled');
-            fetchOrders();
+            fetchAllData();
         } catch (error) {
             message.error('Failed to cancel order');
         }
@@ -305,11 +324,6 @@ const OrdersPage: React.FC = () => {
                         <Title level={2} style={{ margin: 0, color: '#1F1F1F', fontWeight: 600 }}>Orders</Title>
                         <Text style={{ color: '#8C8C8C', fontSize: 15 }}>Real-time orders monitored by Azure AI Sentiment Analysis</Text>
                     </div>
-                    <Button
-                        icon={<ReloadOutlined />}
-                        onClick={fetchOrders}
-                        style={{ borderRadius: 50, height: 44, border: 'none', background: '#FFFFFF', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
-                    >Refresh</Button>
                 </div>
 
                 {/* Stats Cards */}
@@ -338,7 +352,9 @@ const OrdersPage: React.FC = () => {
                                 </div>
                                 <div>
                                     <Text style={{ color: '#8C8C8C', fontSize: 13 }}>Total Orders</Text>
-                                    <div style={{ fontSize: 28, fontWeight: 700, color: '#1F1F1F' }}>{stats.totalOrders}</div>
+                                    <div style={{ fontSize: 28, fontWeight: 700, color: '#1F1F1F' }}>
+                                        {orders.filter(o => o.status !== 'Cancelled').length}
+                                    </div>
                                 </div>
                             </div>
                         </Card>
@@ -367,7 +383,7 @@ const OrdersPage: React.FC = () => {
                                 </div>
                                 <div>
                                     <Text style={{ color: '#8C8C8C', fontSize: 13 }}>Total Revenue</Text>
-                                    <div style={{ fontSize: 28, fontWeight: 700, color: '#1F1F1F' }}>RM {stats.totalRevenue.toFixed(2)}</div>
+                                    <div style={{ fontSize: 28, fontWeight: 700, color: '#1F1F1F' }}>RM {totalRevenue?.toFixed(2)}</div>
                                 </div>
                             </div>
                         </Card>
