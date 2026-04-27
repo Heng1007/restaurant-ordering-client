@@ -29,7 +29,6 @@ interface OrderHistoryItem {
     totalPrice: number;
     status: string;
     customerNote: string;
-    sentiment: string;
     items: { food: { name: string }; quantity: number }[];
 }
 
@@ -165,7 +164,7 @@ const MenuPage: React.FC = () => {
           
           // 1. 构造后端需要的 DTO 格式
           const orderPayload = {
-              customerNote: values.note, // 👈 AI 要分析的就是这句话！
+              customerNote: values.note,
               items: cart.map(item => ({
                   foodItemId: item.id,
                   quantity: item.quantity
@@ -177,7 +176,7 @@ const MenuPage: React.FC = () => {
               headers: { Authorization: `Bearer ${token}` }
           });
 
-          message.success("Order placed! AI is analyzing your note...");
+          message.success("Order placed successfully!");
           
           // 3. 清理现场
           setCart([]);
@@ -516,10 +515,10 @@ const MenuPage: React.FC = () => {
                 </div>
 
                 <Form form={checkoutForm} layout="vertical" onFinish={handleCheckout}>
-                    <Form.Item name="note" label={<span style={{ fontWeight: 500 }}>Special Instructions <Tag style={{ background: '#E6F0FF', color: '#0958D9', border: 'none', borderRadius: 20, marginLeft: 8 }}>AI Analyzed</Tag></span>}>
-                        <TextArea 
-                          rows={3} 
-                          placeholder="e.g. I love spicy food! (Azure AI will analyze the sentiment)"
+                    <Form.Item name="note" label={<span style={{ fontWeight: 500 }}>Special Instructions</span>}>
+                        <TextArea
+                          rows={3}
+                          placeholder="e.g. No spicy, extra sauce, allergies..."
                           style={{ borderRadius: 12 }}
                         />
                     </Form.Item>
@@ -596,23 +595,9 @@ const MenuPage: React.FC = () => {
                     ))}
                   </div>
 
-                  {/* Note & Sentiment */}
                   {order.customerNote && (
                     <div style={{ marginBottom: 12 }}>
                       <Text style={{ color: '#8C8C8C', fontSize: 13, fontStyle: 'italic' }}>"{order.customerNote}"</Text>
-                      {order.sentiment && (
-                        <Tag style={{ 
-                          marginLeft: 8,
-                          background: order.sentiment === 'Positive' ? '#E6F7E9' : 
-                                      order.sentiment === 'Negative' ? '#FFF1F0' : '#F5F5F5',
-                          color: order.sentiment === 'Positive' ? '#0D7A1F' : 
-                                 order.sentiment === 'Negative' ? '#CF1322' : '#595959',
-                          border: 'none',
-                          borderRadius: 20
-                        }}>
-                          {order.sentiment}
-                        </Tag>
-                      )}
                     </div>
                   )}
 

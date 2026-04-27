@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Layout, Table, Tag, Typography, message, Card, Row, Col, Button, Select, Popconfirm, Pagination } from 'antd';
-import { SmileOutlined, MehOutlined, FrownOutlined, CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, TrophyOutlined, LogoutOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, TrophyOutlined, LogoutOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,7 +20,6 @@ interface Order {
     orderDate: string;
     totalPrice: number;
     customerNote: string;
-    sentiment: string; // 👈 AI 分析结果
     status: string;
     items: OrderItem[];
 }
@@ -121,20 +120,6 @@ const OrdersPage: React.FC = () => {
         }
     };
 
-    // 👇 处理 AI 情感的显示逻辑
-    const renderSentiment = (sentiment: string) => {
-        switch (sentiment) {
-            case 'Positive':
-                return <Tag icon={<SmileOutlined />} style={{ background: '#E6F7E9', color: '#0D7A1F', border: 'none', borderRadius: 20, padding: '4px 12px' }}>Positive</Tag>;
-            case 'Negative':
-                return <Tag icon={<FrownOutlined />} style={{ background: '#FFF1F0', color: '#CF1322', border: 'none', borderRadius: 20, padding: '4px 12px' }}>Negative</Tag>;
-            case 'Mixed':
-                return <Tag icon={<MehOutlined />} style={{ background: '#FFF7E6', color: '#D46B08', border: 'none', borderRadius: 20, padding: '4px 12px' }}>Mixed</Tag>;
-            default:
-                return <Tag style={{ background: '#F5F5F5', color: '#595959', border: 'none', borderRadius: 20, padding: '4px 12px' }}>Neutral</Tag>;
-        }
-    };
-
     // 👇 处理订单状态颜色
     const renderStatus = (status: string) => {
         switch (status) {
@@ -216,12 +201,6 @@ const OrdersPage: React.FC = () => {
             dataIndex: 'customerNote',
             key: 'customerNote',
             render: (text: string) => <span style={{ fontStyle: 'italic', color: '#666' }}>"{text || 'No note'}"</span>
-        },
-        {
-            title: 'AI Sentiment', // 👈 亮点在这里！
-            dataIndex: 'sentiment',
-            key: 'sentiment',
-            render: (sentiment: string) => renderSentiment(sentiment),
         },
         {
             title: 'Status',
@@ -322,7 +301,7 @@ const OrdersPage: React.FC = () => {
                 <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 32 }}>
                     <div>
                         <Title level={2} style={{ margin: 0, color: '#1F1F1F', fontWeight: 600 }}>Orders</Title>
-                        <Text style={{ color: '#8C8C8C', fontSize: 15 }}>Real-time orders monitored by Azure AI Sentiment Analysis</Text>
+                        <Text style={{ color: '#8C8C8C', fontSize: 15 }}>Manage and track all customer orders</Text>
                     </div>
                 </div>
 
@@ -416,35 +395,6 @@ const OrdersPage: React.FC = () => {
                                         {topSpender ? `User #${topSpender.customerId}` : 'N/A'}
                                     </div>
                                     {topSpender && <Text style={{ color: '#D46B08', fontSize: 13, fontWeight: 500 }}>RM {topSpender.totalSpent.toFixed(2)}</Text>}
-                                </div>
-                            </div>
-                        </Card>
-                    </Col>
-                    <Col xs={24} sm={12} lg={6}>
-                        <Card
-                            style={{
-                                borderRadius: 16,
-                                border: 'none',
-                                boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
-                                background: '#FFFFFF'
-                            }}
-                            styles={{ body: { padding: 24 } }}
-                        >
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                                <div style={{
-                                    width: 48,
-                                    height: 48,
-                                    background: '#F0E6FF',
-                                    borderRadius: 12,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}>
-                                    <SmileOutlined style={{ fontSize: 22, color: '#722ED1' }} />
-                                </div>
-                                <div>
-                                    <Text style={{ color: '#8C8C8C', fontSize: 13 }}>AI System</Text>
-                                    <div style={{ fontSize: 20, fontWeight: 700, color: '#0D7A1F' }}>Active</div>
                                 </div>
                             </div>
                         </Card>
