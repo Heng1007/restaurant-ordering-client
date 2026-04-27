@@ -1,4 +1,4 @@
-# 🍔 Food Delivery Platform - Interactive Client Portal
+# 🍔 Restaurant Online Ordering System - Interactive Client Portal
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![TypeScript](https://img.shields.io/badge/typescript-%230074c1.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -6,7 +6,7 @@
 ![Ant-Design](https://img.shields.io/badge/-AntDesign-%230170FE?style=for-the-badge&logo=ant-design&logoColor=white)
 ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 
-A modern, highly responsive Single-Page Application (SPA) built for a seamless food delivery experience. It features a clean UI for customers and a powerful, data-driven dashboard for administrators.
+A modern, highly responsive Single-Page Application (SPA) built for a seamless food ordering experience. It features a clean UI for customers to browse menus and place orders, and a powerful data-driven dashboard for administrators to manage orders and monitor business metrics.
 
 ---
 
@@ -28,8 +28,8 @@ This project adopts a modern decoupled architecture. You are currently viewing t
 <img width="1912" height="938" alt="image" src="https://github.com/user-attachments/assets/06411471-e07f-47c3-bc37-bd01e891fd36" />
 <img width="1916" height="941" alt="image" src="https://github.com/user-attachments/assets/4bfa63f4-f592-44af-8ac9-81344944e25b" />
 
-### 2. 📊 Admin Dashboard & Order Tracking
-*A single interface for sales overview and order tracking.*
+### 2. 📊 Admin Dashboard & Order Management
+*A single interface for sales overview and order status management.*
 
 <img width="1911" height="944" alt="image" src="https://github.com/user-attachments/assets/491bb48e-5b58-4bde-ba68-bfad7564483d" />
 
